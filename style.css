@@ -1,0 +1,100 @@
+
+:root{
+    --svg: 4rem;
+    --squaresixe: 8rem;
+    --boardSize: calc(var(--squaresixe)*3);
+}
+body{
+    padding: 0;
+    margin: 0;
+    font-family: "Ubuntu", sans-serif;
+    background-color: #124559;
+}
+#banner{
+    background-color: #669bbc;
+    margin-top: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 2rem 1rem 2rem;
+}
+#banner > p:first-child{
+    font-size: 3rem;
+    margin: 0;
+    width: fit-content;
+    color: #fdf0d5;
+}
+#banner > svg{
+    height: var(--svg);
+    width: var(--svg);
+}
+#game{
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+#board{
+    background-color: #aec3b0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: var(--boardSize);
+    height: var(--boardSize);
+    margin-inline: auto;
+    padding: 2rem;
+    border-radius: 20px;
+    perspective: 1000px;
+}
+.square{
+    width: var(--squaresixe);
+    height: var(--squaresixe);
+    background-color: white;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+    display: block;
+    align-content: center;
+    transform: rotateX(0deg);
+    transform: scale(1);
+    transition: transform 100ms ease-in-out;
+}
+.square > p{
+    text-align: center;
+}
+.square:hover{
+    transform: rotateX(2deg);
+    transform: scale(0.9);
+    background-color: #8ad2ff;
+}
+#control{
+    border-radius: 20px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    background-color: #eff6e0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr 2fr 2fr;
+}
+#control button{
+    all: unset;
+    border: none;
+    padding: 1rem;
+    color: rgb(14, 14, 14);
+    font-weight: 600;
+    font-size: 0.8rem;
+    border-radius: 100px;
+    width: 3.5rem;
+    height: 1rem;
+    text-align: center;
+    margin-inline: auto;
+    align-self: center;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    transition: background-color 50ms;
+    transition: color 700ms;
+    cursor: pointer;
+}
+#control button:hover{
+    color: white;
+    background-color: #7209b7;
+}
+#control button:active{
+    color: white;
+    background-color: #f77f00;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
