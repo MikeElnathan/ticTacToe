@@ -12,23 +12,20 @@
 <body>
     <div id="banner">
         <p>TicTacToe From Hell</p>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"><path d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM9 9H5V5h4v4zm5 2h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zm1-6h4v4h-4V5zM3 20a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v6zm2-5h4v4H5v-4zm8 5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6zm2-5h4v4h-4v-4z"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);"><path d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM9 9H5V5h4v4zm5 2h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zm1-6h4v4h-4V5zM3 20a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v6zm2-5h4v4H5v-4zm8 5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6zm2-5h4v4h-4v-4z"></path></svg>
     </div>
     <div id="game">
         <div id="board">
-            <div class="square" ><p>a</p></div>
-            <div class="square" ><p>b</p></div>
-            <div class="square" ><p>c</p></div>
-            <div class="square" ><p>d</p></div>
-            <div class="square" ><p>e</p></div>
-            <div class="square" ><p>f</p></div>
-            <div class="square" ><p>g</p></div>
-            <div class="square" ><p>h</p></div>
-            <div class="square" ><p>i</p></div>
         </div>
         <div id="control">
+            <button id="createBoard">Create Board</button>
             <button id="players">HUMAN</button>
             <button id="ai">AI</button>
+            <div id="status">
+                <p>Status:</p>
+                <p id="gamelog"></p>
+            </div>
+        </div>
     </div>
     <div id="footer"></div>
     <script src="main.js"></script>
