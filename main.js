@@ -1,53 +1,82 @@
-const mainBoard = document.getElementById("board");
 const makeBoard = document.getElementById("createBoard");
+const gamelog = document.getElementById("gamelog");
+const mainBoard = document.getElementById("board");
+let arrays =    [   
+                    ['','',''],
+                    ['','',''],
+                    ['','','']
+                ];
+
 let totalTurns = 1;
 // --------------------------------------------------------------
-function createboard(){
-        while(mainBoard.firstChild){
-            mainBoard.removeChild(mainBoard.firstChild);
-            totalTurns = 1;
-        }
+function createElement(tag, i, j, classname){
+    const element = document.createElement(tag);    
+    element.id = `${i}${j}`;
+    element.className = classname;
 
-        for (let i = 0; i < 9; i++ ){
-            const squareBoard = document.createElement("div");
-
-            squareBoard.id = `${i}`;
-
-            squareBoard.addEventListener("click", ()=>{
-                console.log(`A square numbered ${squareBoard.id} is pressed`);
-                gameStart(squareBoard.id);
-            })
-    
-            squareBoard.className = "square";
-            mainBoard.appendChild(squareBoard);
-            makeBoard.innerText = 'Reset Board';
-        }
-    
+    return element;
 }
 // --------------------------------------------------------------
-function gameStart(buttonId){
+
+function drawMarks(temp, totalTurns, i, j){
+    const whosTurn = document.getElementById("turn");
+    
+    if (totalTurns % 2 === 0){
+        temp.innerText = "X";
+        createArray(temp, i, j);
+    }else{
+        temp.innerText = "O";
+        createArray(temp, i, j);
+    }
+}
+
+function reset(){
+    mainBoard.removeChild(mainBoard.firstChild);
+    
+    while(gamelog.firstChild){
+        gamelog.removeChild(gamelog.firstChild);
+    }
+    console.clear();
+    totalTurns = 1;
+}
+
+function createArray(temp, i, j){
+    arrays[i][j] = temp.innerText;
+    console.log(arrays);
+}
+
+function gameStart(buttonId, i, j){
+    const temp = document.getElementById(`${buttonId}`);
+
     if(mainBoard.hasChildNodes()){
         // TODO
-        if(totalTurns < 10){
+        if(totalTurns < 10 && temp.innerText === ''){
 
-            drawMarks(buttonId, totalTurns);
-            console.log(totalTurns);
+            drawMarks(temp, totalTurns, i, j);
             totalTurns += 1;
         }
     }
 }
-function drawMarks(buttonId, totalTurns){
-    const temp = document.getElementById(`${buttonId}`);
-
-    whosTurn(temp, totalTurns);
-    
-}
-function whosTurn(temp, index){
-    if (index % 2 === 0){
-        temp.innerText = "X";
-    }else{
-        temp.innerText = "O";
+// --------------------------------------------------------------
+function createboard(){
+    makeBoard.innerText = 'Reset Board';
+    while(mainBoard.firstChild){
+        reset();
     }
+    
+    for (let i = 0; i < 3; i++ ){
+        
+        for (let j = 0; j < 3; j++){
+            
+            const squareBoard = createElement('div', i, j, "square");
+            squareBoard.addEventListener("click", ()=>{
+                console.log(`A square numbered ${squareBoard.id} is pressed`);
+                gameStart(squareBoard.id, i, j);
+            })
+                
+                mainBoard.appendChild(squareBoard);
+            }
+        }
 }
 // --------------------------------------------------------------
 makeBoard.addEventListener("click", () => {
