@@ -1,9 +1,12 @@
 const mainBoard = document.getElementById("board");
 const makeBoard = document.getElementById("createBoard");
-console.log("   hello");
+let totalTurns = 1;
 // --------------------------------------------------------------
 function createboard(){
-        mainBoard.innerHTML = '';
+        while(mainBoard.firstChild){
+            mainBoard.removeChild(mainBoard.firstChild);
+            totalTurns = 1;
+        }
 
         for (let i = 0; i < 9; i++ ){
             const squareBoard = document.createElement("div");
@@ -25,17 +28,29 @@ function createboard(){
 function gameStart(buttonId){
     if(mainBoard.hasChildNodes()){
         // TODO
-        drawMarks(buttonId);
+        if(totalTurns < 10){
+
+            drawMarks(buttonId, totalTurns);
+            console.log(totalTurns);
+            totalTurns += 1;
+        }
     }
 }
-
-function drawMarks(buttonId){
+function drawMarks(buttonId, totalTurns){
     const temp = document.getElementById(`${buttonId}`);
 
-    temp.innerText = "X";
+    whosTurn(temp, totalTurns);
+    
+}
+function whosTurn(temp, index){
+    if (index % 2 === 0){
+        temp.innerText = "X";
+    }else{
+        temp.innerText = "O";
+    }
 }
 // --------------------------------------------------------------
 makeBoard.addEventListener("click", () => {
-    console.log("Create board is pressed");
+    console.log("Create board/Reset board is pressed");
     createboard();
 });
