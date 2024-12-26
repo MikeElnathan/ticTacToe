@@ -8,6 +8,7 @@ let arrays =    [
                 ];
 
 let totalTurns = 1;
+let playerTurn = "";
 // --------------------------------------------------------------
 function createElement(tag, i, j, classname){
     const element = document.createElement(tag);    
@@ -18,21 +19,16 @@ function createElement(tag, i, j, classname){
 }
 // --------------------------------------------------------------
 
-function drawMarks(temp, totalTurns, i, j){
-    const whosTurn = document.getElementById("turn");
-    
-    if (totalTurns % 2 === 0){
-        temp.innerText = "X";
-        createArray(temp, i, j);
-    }else{
-        temp.innerText = "O";
-        createArray(temp, i, j);
-    }
-}
 
 function reset(){
     mainBoard.removeChild(mainBoard.firstChild);
     
+    arrays = [   
+                ['','',''],
+                ['','',''],
+                ['','','']
+                            ];
+
     while(gamelog.firstChild){
         gamelog.removeChild(gamelog.firstChild);
     }
@@ -45,18 +41,65 @@ function createArray(temp, i, j){
     console.log(arrays);
 }
 
+function drawMarks(temp, totalTurns, i, j){
+    const whosTurn = document.getElementById("turn");
+    
+    if (totalTurns % 2 === 0){
+        temp.innerText = "X";
+        createArray(temp, i, j);
+        if(checkForWin()){
+            playerTurn = "Player 1"
+            console.log(`${playerTurn} won`);
+        }
+    }else{
+        temp.innerText = "O";
+        createArray(temp, i, j);
+        if(checkForWin()){
+            playerTurn = "Player 2"
+            console.log(`${playerTurn} won`);
+        }
+    }
+}
+
+function checkForWin(){
+    // row -> check adjacent cell
+    for (let i = 0; i < 3; i++){
+        if (arrays[i][0] === arrays[i][1] && 
+            arrays[i][0] === arrays[i][2] &&
+            arrays[i][0] !== ''){
+                return true;
+        }
+    }
+    // column -> check adjacent cell
+    for (let j = 0; j < 3; j++){
+        if (arrays[0][j] === arrays[1][j] && 
+            arrays[0][j] === arrays[2][j] &&
+            arrays[0][j] !== ''){
+                return true;
+        }
+    }
+    // diagonal -> check for win
+    if(arrays[0][0] != '' && arrays[0][0] === arrays[1][1] && arrays[0][0] === arrays[2][2]){
+        return true;
+    }
+    if(arrays[0][2] != '' && arrays[0][2] === arrays[1][1] && arrays[0][2] === arrays[2][0]){
+        return true;
+    } 
+}
+
 function gameStart(buttonId, i, j){
     const temp = document.getElementById(`${buttonId}`);
-
+    
     if(mainBoard.hasChildNodes()){
         // TODO
         if(totalTurns < 10 && temp.innerText === ''){
-
+            
             drawMarks(temp, totalTurns, i, j);
             totalTurns += 1;
         }
     }
 }
+
 // --------------------------------------------------------------
 function createboard(){
     makeBoard.innerText = 'Reset Board';
@@ -73,10 +116,10 @@ function createboard(){
                 console.log(`A square numbered ${squareBoard.id} is pressed`);
                 gameStart(squareBoard.id, i, j);
             })
-                
-                mainBoard.appendChild(squareBoard);
-            }
+            
+            mainBoard.appendChild(squareBoard);
         }
+    }    
 }
 // --------------------------------------------------------------
 makeBoard.addEventListener("click", () => {
