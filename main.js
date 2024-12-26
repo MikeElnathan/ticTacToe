@@ -9,6 +9,7 @@ let arrays =    [
 
 let totalTurns = 1;
 let playerTurn = "";
+let disableClick = false;
 // --------------------------------------------------------------
 function createElement(tag, i, j, classname){
     const element = document.createElement(tag);    
@@ -22,7 +23,7 @@ function createElement(tag, i, j, classname){
 
 function reset(){
     mainBoard.removeChild(mainBoard.firstChild);
-    
+    disableClick = false;
     arrays = [   
                 ['','',''],
                 ['','',''],
@@ -49,14 +50,16 @@ function drawMarks(temp, totalTurns, i, j){
         createArray(temp, i, j);
         if(checkForWin()){
             playerTurn = "Player 1"
-            console.log(`${playerTurn} won`);
+            gamelog.innerText = `${playerTurn} won`;
+            disableBoard();
         }
     }else{
         temp.innerText = "O";
         createArray(temp, i, j);
         if(checkForWin()){
             playerTurn = "Player 2"
-            console.log(`${playerTurn} won`);
+            gamelog.innerText = `${playerTurn} won`;
+            disableBoard();
         }
     }
 }
@@ -84,7 +87,14 @@ function checkForWin(){
     }
     if(arrays[0][2] != '' && arrays[0][2] === arrays[1][1] && arrays[0][2] === arrays[2][0]){
         return true;
-    } 
+    }
+
+
+    return false;
+}
+
+function disableBoard(){
+    disableClick = true;
 }
 
 function gameStart(buttonId, i, j){
@@ -92,10 +102,14 @@ function gameStart(buttonId, i, j){
     
     if(mainBoard.hasChildNodes()){
         // TODO
-        if(totalTurns < 10 && temp.innerText === ''){
+        if(totalTurns < 10 && temp.innerText === '' && disableClick === false){
             
             drawMarks(temp, totalTurns, i, j);
             totalTurns += 1;
+            if (totalTurns === 10 && checkForWin() === false){
+                gamelog.innerText = "It's a draw."
+                console.log(totalTurns);
+            }
         }
     }
 }
