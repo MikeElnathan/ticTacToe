@@ -54,7 +54,7 @@ body{
     transform: scale(1);
     transition: transform 100ms ease-in-out;
 }
-.square > p{
+.square{
     text-align: center;
     font-size: 3rem;
     font-weight: 700;
